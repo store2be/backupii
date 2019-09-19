@@ -122,3 +122,5 @@ nav_v4: [
       ['Twitter',                   'notifier-twitter'          ],
       ['Zabbix',                    'notifier-zabbix'           ]
 ]
+
+theme: jekyll-theme-dinky
