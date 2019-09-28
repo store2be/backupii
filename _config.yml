@@ -1,5 +1,5 @@
-name: Backup Documentation
-baseurl: /backup
+name: BackupII Documentation
+baseurl: /backupii
 encoding: utf-8
 exclude: ['Gemfile', 'Gemfile.lock']
 kramdown:
@@ -122,5 +122,3 @@ nav_v4: [
       ['Twitter',                   'notifier-twitter'          ],
       ['Zabbix',                    'notifier-zabbix'           ]
 ]
-
-theme: jekyll-theme-dinky
