@@ -28,9 +28,9 @@ ticket.
 **Copyright (c) 2009-2017 [Michael van Rooijen][]**
 Released under the **MIT** [LICENSE](LICENSE).
 
-[Installation]:  http://backupii.github.io/backupii/v4/installation
-[Release Notes]: http://backupii.github.io/backupii/v4/release-notes
-[Documentation]: http://backupii.github.io/backupii/v4
+[Installation]:  http://backupii.github.io/backupii/v0/installation
+[Release Notes]: http://backupii.github.io/backupii/v0/release-notes
+[Documentation]: http://backupii.github.io/backupii/v0
 [Issues]: https://github.com/backupii/backupii/issues
 [Contributing and getting started]: CONTRIBUTING.md
 [Maintainers wanted]: https://github.com/backupii/backupii/issues/1
