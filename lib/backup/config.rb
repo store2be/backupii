@@ -18,6 +18,32 @@ module Backup
 
       attr_reader :user, :root_path, :config_file, :data_path, :tmp_path
 
+      def check_config_version!(config)
+        version = Backup::VERSION.split(".").first
+
+        return if config =~ %r{^# backupii_config_version: #{version}$}
+
+        if config =~ %r{^# Backup v\d\.x Configuration$}
+          raise Error, <<-ERROR_MSG
+            Invalid Configuration File.
+            The configuration file at '#{config_file}'
+            appears to be a Backup 3/4/5 configuration file.
+            In order to use it with BackupII, you need to upgrade it.
+            Please refer to the BackupII documentation for upgrade instructions.
+          ERROR_MSG
+        elsif !(config =~ %r{^# backupii_config_version: #{version}$})
+          raise Error, <<-ERROR_MSG
+            Invalid Configuration File
+            The configuration file at '#{config_file}'
+            does not appear to be a BackupII v#{version}.x configuration file.
+            If you have upgraded to v#{version}.x from a previous version,
+            you need to upgrade your configuration file.
+            Please see the instructions for upgrading in the BackupII
+            documentation.
+          ERROR_MSG
+        end
+      end
+
       # Loads the user's +config.rb+ and all model files.
       def load(options = {})
         update(options) # from the command line
@@ -27,17 +53,7 @@ module Backup
         end
 
         config = File.read(config_file)
-        version = Backup::VERSION.split(".").first
-        unless config =~ %r{^# Backup v#{version}\.x Configuration$}
-          raise Error, <<-EOS
-            Invalid Configuration File
-            The configuration file at '#{config_file}'
-            does not appear to be a Backup v#{version}.x configuration file.
-            If you have upgraded to v#{version}.x from a previous version,
-            you need to upgrade your configuration file.
-            Please see the instructions for upgrading in the Backup documentation.
-          EOS
-        end
+        check_config_version!(config)
 
         dsl = DSL.new
         dsl.instance_eval(config, config_file)
@@ -112,7 +128,7 @@ module Backup
 
       def reset!
         @user      = ENV["USER"] || Etc.getpwuid.name
-        @root_path = File.join(File.expand_path(ENV["HOME"] || ""), "Backup")
+        @root_path = File.join(File.expand_path(ENV["HOME"] || ""), "BackupII")
         update(root_path: @root_path)
       end
     end

@@ -13,12 +13,14 @@ module Backup
       it "loads config.rb and models" do
         allow(File).to receive(:exist?).and_return(true)
         allow(File).to receive(:read)
-          .and_return("# Backup v#{major_gem_version}.x Configuration\n"\
+          .and_return("# backupii_config_version: #{major_gem_version}\n"\
                       "@loaded << :config")
         allow(File).to receive(:directory?).and_return(true)
         allow(Dir).to receive(:[]).and_return(%w[model_a model_b])
-        expect(File).to receive(:read).with("model_a").and_return("@loaded << :model_a")
-        expect(File).to receive(:read).with("model_b").and_return("@loaded << :model_b")
+        expect(File).to receive(:read).with("model_a")
+          .and_return("@loaded << :model_a")
+        expect(File).to receive(:read).with("model_b")
+          .and_return("@loaded << :model_b")
 
         dsl = config::DSL.new
         dsl.instance_variable_set(:@loaded, [])
@@ -49,14 +51,27 @@ module Backup
         end.to raise_error config::Error, %r{Invalid Configuration File}
       end
 
+      it "raises an error if config file version is invalid" do
+        allow(File).to receive(:exist?).and_return(true)
+        allow(File).to receive(:read)
+          .and_return("# backupii_config_version: 42\n")
+        allow(File).to receive(:directory?).and_return(true)
+        allow(Dir).to receive(:[]).and_return([])
+
+        expect do
+          config.load(config_file: "/foo")
+        end.to raise_error config::Error, %r{Invalid Configuration File}
+      end
+
       describe "setting config paths from command line options" do
         let(:default_root_path) do
-          File.join(File.expand_path(ENV["HOME"] || ""), "Backup")
+          File.join(File.expand_path(ENV["HOME"] || ""), "BackupII")
         end
 
         before do
           allow(File).to receive(:exist?).and_return(true)
-          allow(File).to receive(:read).and_return("# Backup v#{major_gem_version}.x Configuration")
+          allow(File).to receive(:read)
+            .and_return("# backupii_config_version: #{major_gem_version}")
           allow(File).to receive(:directory?).and_return(true)
           allow(Dir).to receive(:[]).and_return([])
         end
@@ -306,7 +321,7 @@ module Backup
           it 'should set value using ENV["HOME"]' do
             config.send(:reset!)
             expect(config.root_path).to eq(
-              File.join(File.expand_path("test/home/dir"), "Backup")
+              File.join(File.expand_path("test/home/dir"), "BackupII")
             )
           end
         end
@@ -316,7 +331,7 @@ module Backup
 
           it "should set value using $PWD" do
             config.send(:reset!)
-            expect(config.root_path).to eq(File.expand_path("Backup"))
+            expect(config.root_path).to eq(File.expand_path("BackupII"))
           end
         end
       end # context 'when setting @root_path'
@@ -326,7 +341,7 @@ module Backup
 
         it "should use #update" do
           expect(config).to receive(:update).with(
-            root_path: File.join(File.expand_path("test/home/dir"), "Backup")
+            root_path: File.join(File.expand_path("test/home/dir"), "BackupII")
           )
           config.send(:reset!)
         end

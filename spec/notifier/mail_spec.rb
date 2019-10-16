@@ -148,12 +148,12 @@ module Backup
             See the attached backup log for details.
 
             #{"=" * 75}
-            Backup v#{VERSION}
+            BackupII v#{VERSION}
             Ruby: #{RUBY_DESCRIPTION}
 
-            Project Home:  https://github.com/backup/backup
-            Documentation: http://backup.github.io/backup
-            Issue Tracker: https://github.com/backup/backup/issues
+            Project Home:  https://github.com/backupii/backupii
+            Documentation: http://backupii.github.io/backupii
+            Issue Tracker: https://github.com/backupii/backupii/issues
             EOS
           end
         end
@@ -177,12 +177,12 @@ module Backup
             Duration: 00:00:05
 
             #{"=" * 75}
-            Backup v#{VERSION}
+            BackupII v#{VERSION}
             Ruby: #{RUBY_DESCRIPTION}
 
-            Project Home:  https://github.com/backup/backup
-            Documentation: http://backup.github.io/backup
-            Issue Tracker: https://github.com/backup/backup/issues
+            Project Home:  https://github.com/backupii/backupii
+            Documentation: http://backupii.github.io/backupii
+            Issue Tracker: https://github.com/backupii/backupii/issues
             EOS
           end
         end
@@ -213,12 +213,12 @@ module Backup
             See the attached backup log for details.
 
             #{"=" * 75}
-            Backup v#{VERSION}
+            BackupII v#{VERSION}
             Ruby: #{RUBY_DESCRIPTION}
 
-            Project Home:  https://github.com/backup/backup
-            Documentation: http://backup.github.io/backup
-            Issue Tracker: https://github.com/backup/backup/issues
+            Project Home:  https://github.com/backupii/backupii
+            Documentation: http://backupii.github.io/backupii
+            Issue Tracker: https://github.com/backupii/backupii/issues
             EOS
           end
         end
@@ -244,12 +244,12 @@ module Backup
             Duration: 00:00:05
 
             #{"=" * 75}
-            Backup v#{VERSION}
+            BackupII v#{VERSION}
             Ruby: #{RUBY_DESCRIPTION}
 
-            Project Home:  https://github.com/backup/backup
-            Documentation: http://backup.github.io/backup
-            Issue Tracker: https://github.com/backup/backup/issues
+            Project Home:  https://github.com/backupii/backupii
+            Documentation: http://backupii.github.io/backupii
+            Issue Tracker: https://github.com/backupii/backupii/issues
             EOS
           end
         end
@@ -280,12 +280,12 @@ module Backup
             See the attached backup log for details.
 
             #{"=" * 75}
-            Backup v#{VERSION}
+            BackupII v#{VERSION}
             Ruby: #{RUBY_DESCRIPTION}
 
-            Project Home:  https://github.com/backup/backup
-            Documentation: http://backup.github.io/backup
-            Issue Tracker: https://github.com/backup/backup/issues
+            Project Home:  https://github.com/backupii/backupii
+            Documentation: http://backupii.github.io/backupii
+            Issue Tracker: https://github.com/backupii/backupii/issues
             EOS
           end
         end
@@ -311,12 +311,12 @@ module Backup
             Duration: 00:00:05
 
             #{"=" * 75}
-            Backup v#{VERSION}
+            BackupII v#{VERSION}
             Ruby: #{RUBY_DESCRIPTION}
 
-            Project Home:  https://github.com/backup/backup
-            Documentation: http://backup.github.io/backup
-            Issue Tracker: https://github.com/backup/backup/issues
+            Project Home:  https://github.com/backupii/backupii
+            Documentation: http://backupii.github.io/backupii
+            Issue Tracker: https://github.com/backupii/backupii/issues
             EOS
           end
         end

@@ -10,7 +10,7 @@
   #   archive.exclude "/path/to/an/excluded_directory
   #
   # By default, relative paths will be relative to the directory
-  # where `backup perform` is executed, and they will be expanded
+  # where `backupii perform` is executed, and they will be expanded
   # to the root of the filesystem when added to the archive.
   #
   # If a `root` path is set, relative paths will be relative to the

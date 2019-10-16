@@ -5,17 +5,22 @@ require File.expand_path("lib/backup/version")
 Gem::Specification.new do |gem|
   gem.name        = "backupii"
   gem.version     = Backup::VERSION
-  gem.authors     = "Michael van Rooijen"
+  gem.authors     = ["Michael van Rooijen"]
   gem.email       = "contact@lta.io"
+  gem.homepage    = "https://backupii.github.io/backupii/"
+  gem.metadata    = {
+    "bug_tracker_uri" => "https://github.com/backupii/backupii/issues",
+    "source_code_uri" => "https://github.com/backupii/backupii",
+  }
   gem.homepage    = "https://github.com/backupii/backupii"
   gem.license     = "MIT"
   gem.summary     = "Provides an elegant DSL in Ruby for performing backups "\
     "on UNIX-like systems."
   gem.description = <<-EOS.gsub(%r{\s+}, " ").strip
-    Backup is a RubyGem, written for UNIX-like operating systems, that allows
+    BackupII is a RubyGem, written for UNIX-like operating systems, that allows
     you to easily perform backup operations on both your remote and local
     environments. It provides you with an elegant DSL in Ruby for modeling your
-    backups.  Backup has built-in support for various databases, storage
+    backups. BackupII has built-in support for various databases, storage
     protocols/services, syncers, compressors, encryptors and notifiers which
     you can mix and match. It was built with modularity, extensibility and
     simplicity in mind.
@@ -46,7 +51,7 @@ Gem::Specification.new do |gem|
   gem.add_dependency "twitter", "~> 5.16.0"
   gem.add_dependency "unf", "0.1.3" # for fog/AWS
 
-  gem.add_development_dependency "rake"
+  gem.add_development_dependency "rake", '~> 13.0.0'
   gem.add_development_dependency "rspec", "3.8.0"
   gem.add_development_dependency "rubocop", "0.75.1"
   gem.add_development_dependency "timecop", "0.9.1"
