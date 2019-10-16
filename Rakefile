@@ -47,7 +47,7 @@ def current_branch
   `git rev-parse --abbrev-ref HEAD`.chomp
 end
 
-desc "Release new Backup gem version. Use this to release a new version."
+desc "Release new BackupII gem version. Use this to release a new version."
 task :release do
   puts "Current version: #{current_version}"
   print "Enter new version: "
@@ -75,17 +75,17 @@ task :release do
       "New version: #{new_version}"
   end
 
-  puts `gem build backup.gemspec`
+  puts `gem build backupii.gemspec`
 
   puts "Pushing to repository.."
   puts `git commit -m "Release v#{new_version} [ci skip]" #{version_file}`
-  puts `git tag #{new_version}`
-  puts `git push origin #{new_version} #{current_branch}`
+  puts `git tag v#{new_version}`
+  puts `git push origin v#{new_version} #{current_branch}`
 
-  puts "Publishing Backup version #{new_version}"
-  puts `gem push backup-#{new_version}.gem`
+  puts "Publishing BackupII version #{new_version}"
+  puts `gem push backupii-#{new_version}.gem`
 
-  puts "Backup version #{new_version} released!"
+  puts "BackupII version #{new_version} released!"
 end
 
 namespace :docker do
