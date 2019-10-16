@@ -1,1 +1,1 @@
-see http://backup.github.io/backup/v4/release-notes/
+see http://backupii.github.io/backupii/v0/release-notes/
