@@ -47,6 +47,12 @@ def current_branch
   `git rev-parse --abbrev-ref HEAD`.chomp
 end
 
+# Using the gemspec to get the actual version used by RubyGems because
+# of the .pre automatic prefixing
+def gemspec
+  Gem::Specification::load(__dir__ + '/backupii.gemspec')
+end
+
 desc "Release new BackupII gem version. Use this to release a new version."
 task :release do
   puts "Current version: #{current_version}"
@@ -83,7 +89,7 @@ task :release do
   puts `git push origin v#{new_version} #{current_branch}`
 
   puts "Publishing BackupII version #{new_version}"
-  puts `gem push backupii-#{new_version}.gem`
+  puts `gem push backupii-#{gemspec.version}.gem`
 
   puts "BackupII version #{new_version} released!"
 end
