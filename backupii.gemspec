@@ -7,12 +7,12 @@ Gem::Specification.new do |gem|
   gem.version     = Backup::VERSION
   gem.authors     = ["Michael van Rooijen"]
   gem.email       = "contact@lta.io"
-  gem.homepage    = "https://backupii.github.io/backupii/"
   gem.metadata    = {
+    "homepage_uri" => "https://backupii.github.io/backupii/",
+    "documentation_uri" => "https://backupii.github.io/backupii/",
     "bug_tracker_uri" => "https://github.com/backupii/backupii/issues",
-    "source_code_uri" => "https://github.com/backupii/backupii",
+    "source_code_uri" => "https://github.com/backupii/backupii"
   }
-  gem.homepage    = "https://github.com/backupii/backupii"
   gem.license     = "MIT"
   gem.summary     = "Provides an elegant DSL in Ruby for performing backups "\
     "on UNIX-like systems."
@@ -51,7 +51,7 @@ Gem::Specification.new do |gem|
   gem.add_dependency "twitter", "~> 5.16.0"
   gem.add_dependency "unf", "0.1.3" # for fog/AWS
 
-  gem.add_development_dependency "rake", '~> 13.0.0'
+  gem.add_development_dependency "rake", "~> 13.0.0"
   gem.add_development_dependency "rspec", "3.8.0"
   gem.add_development_dependency "rubocop", "0.75.1"
   gem.add_development_dependency "timecop", "0.9.1"

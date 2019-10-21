@@ -31,7 +31,7 @@ module Backup
             In order to use it with BackupII, you need to upgrade it.
             Please refer to the BackupII documentation for upgrade instructions.
           ERROR_MSG
-        elsif !(config =~ %r{^# backupii_config_version: #{version}$})
+        elsif config !~ %r{^# backupii_config_version: #{version}$}
           raise Error, <<-ERROR_MSG
             Invalid Configuration File
             The configuration file at '#{config_file}'

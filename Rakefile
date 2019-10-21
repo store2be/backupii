@@ -50,7 +50,7 @@ end
 # Using the gemspec to get the actual version used by RubyGems because
 # of the .pre automatic prefixing
 def gemspec
-  Gem::Specification::load(__dir__ + '/backupii.gemspec')
+  Gem::Specification.load(__dir__ + "/backupii.gemspec")
 end
 
 desc "Release new BackupII gem version. Use this to release a new version."
