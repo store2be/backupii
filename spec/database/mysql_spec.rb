@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "spec_helper"
 
 module Backup
@@ -356,7 +358,7 @@ module Backup
         it "returns arguments for only_tables" do
           db.name = "not_all"
 
-          db.only_tables = ["one", "two", "three"]
+          db.only_tables = %w[one two three]
           expect(db.send(:tables_to_dump)).to eq "one two three"
 
           db.only_tables = "four five six"

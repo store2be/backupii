@@ -1,10 +1,11 @@
 # encoding: utf-8
+# backupii_config_version: <%= Backup::VERSION.split('.').first %>
 
 ##
-# Backup v<%= Backup::VERSION.split('.').first %>.x Configuration
+# BackupII v<%= Backup::VERSION.split('.').first %>.x Configuration
 #
-# Documentation: http://backup.github.io/backup
-# Issue Tracker: https://github.com/backup/backup/issues
+# Documentation: http://backupii.github.io/backupii
+# Issue Tracker: https://github.com/backupii/backupii/issues
 
 ##
 # Config Options
@@ -38,7 +39,7 @@
 # tmp_path  'my/tmp'
 #
 # Sets the path where backup stores persistent information.
-# When Backup's Cycler is used, small YAML files are stored here.
+# When BackupII's Cycler is used, small YAML files are stored here.
 # May be an absolute path, or relative to the current directory or +root_path+.
 #
 # data_path 'my/data'
@@ -46,7 +47,7 @@
 ##
 # Utilities
 #
-# If you need to use a utility other than the one Backup detects,
+# If you need to use a utility other than the one BackupII detects,
 # or a utility can not be found in your $PATH.
 #
 #   Utilities.configure do
@@ -70,7 +71,7 @@
 # Command line options will override those set here.
 # For example, the following would override the example settings above
 # to disable syslog and enable console output.
-#   backup perform --trigger my_backup --no-syslog --no-quiet
+#   backupii perform --trigger my_backup --no-syslog --no-quiet
 
 ##
 # Component Defaults

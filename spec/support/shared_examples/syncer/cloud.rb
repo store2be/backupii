@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 shared_examples "a subclass of Syncer::Cloud::Base" do
   let(:syncer_name) { described_class.name.sub("Backup::", "") }
   let(:s) { sequence "" }
@@ -31,12 +33,12 @@ shared_examples "a subclass of Syncer::Cloud::Base" do
     end
     let(:remote_files_data) do
       {
-        "unchanged_01"          => "unchanged_01_md5",
-        "sub_dir/unchanged_02"  => "unchanged_02_md5",
-        "changed_01"            => "changed_01_md5_old",
-        "sub_dir/changed_02"    => "changed_02_md5_old",
-        "orphan_01"             => "orphan_01_md5",
-        "sub_dir/orphan_02"     => "orphan_02_md5"
+        "unchanged_01" => "unchanged_01_md5",
+        "sub_dir/unchanged_02" => "unchanged_02_md5",
+        "changed_01" => "changed_01_md5_old",
+        "sub_dir/changed_02" => "changed_02_md5_old",
+        "orphan_01" => "orphan_01_md5",
+        "sub_dir/orphan_02" => "orphan_02_md5"
       }
     end
 
@@ -58,7 +60,7 @@ shared_examples "a subclass of Syncer::Cloud::Base" do
       end
 
       it "does not attempt to sync" do
-        expected_messages = <<-EOS.gsub(/^ +/, "").chomp
+        expected_messages = <<-EOS.gsub(%r{^ +}, "").chomp
           #{syncer_name} Started...
           Gathering remote data for 'my_backups/sync_dir'...
           Gathering local data for '/local/path/sync_dir'...
@@ -90,7 +92,7 @@ shared_examples "a subclass of Syncer::Cloud::Base" do
 
       context "without mirror" do
         it "leaves orphaned files" do
-          expected_messages = <<-EOS.gsub(/^ +/, "").chomp
+          expected_messages = <<-EOS.gsub(%r{^ +}, "").chomp
             #{syncer_name} Started...
             Gathering remote data for 'my_backups/sync_dir'...
             Gathering local data for '/local/path/sync_dir'...
@@ -121,7 +123,7 @@ shared_examples "a subclass of Syncer::Cloud::Base" do
         before { syncer.mirror = true }
 
         it "deletes orphaned files" do
-          expected_messages = <<-EOS.gsub(/^ +/, "").chomp
+          expected_messages = <<-EOS.gsub(%r{^ +}, "").chomp
             #{syncer_name} Started...
             Gathering remote data for 'my_backups/sync_dir'...
             Gathering local data for '/local/path/sync_dir'...
@@ -150,7 +152,7 @@ shared_examples "a subclass of Syncer::Cloud::Base" do
         it "warns if delete fails" do
           allow(cloud_io).to receive(:delete).and_raise("Delete Error")
 
-          expected_messages = <<-EOS.gsub(/^ +/, "").chomp
+          expected_messages = <<-EOS.gsub(%r{^ +}, "").chomp
             #{syncer_name} Started...
             Gathering remote data for 'my_backups/sync_dir'...
             Gathering local data for '/local/path/sync_dir'...
@@ -185,7 +187,7 @@ shared_examples "a subclass of Syncer::Cloud::Base" do
           "/local/path/sync_dir/changed_01", "my_backups/sync_dir/changed_01"
         ).and_raise(Backup::CloudIO::FileSizeError)
 
-        expected_messages = <<-EOS.gsub(/^ +/, "").chomp
+        expected_messages = <<-EOS.gsub(%r{^ +}, "").chomp
           #{syncer_name} Started...
           Gathering remote data for 'my_backups/sync_dir'...
           Gathering local data for '/local/path/sync_dir'...
@@ -239,14 +241,14 @@ shared_examples "a subclass of Syncer::Cloud::Base" do
 
       context "without mirror" do
         it "leaves orphaned files" do
-          expected_head = <<-EOS.gsub(/^ +/, "")
+          expected_head = <<-EOS.gsub(%r{^ +}, "")
             #{syncer_name} Started...
             Gathering remote data for 'my_backups/sync_dir'...
             Gathering local data for '/local/path/sync_dir'...
             Syncing...
             Using 7 Threads
           EOS
-          expected_tail = <<-EOS.gsub(/^ +/, "").chomp
+          expected_tail = <<-EOS.gsub(%r{^ +}, "").chomp
               [orphaned] 'my_backups/sync_dir/orphan_01'
               [orphaned] 'my_backups/sync_dir/sub_dir/orphan_02'
 
@@ -272,14 +274,14 @@ shared_examples "a subclass of Syncer::Cloud::Base" do
         before { syncer.mirror = true }
 
         it "deletes orphaned files" do
-          expected_head = <<-EOS.gsub(/^ +/, "")
+          expected_head = <<-EOS.gsub(%r{^ +}, "")
             #{syncer_name} Started...
             Gathering remote data for 'my_backups/sync_dir'...
             Gathering local data for '/local/path/sync_dir'...
             Syncing...
             Using 7 Threads
           EOS
-          expected_tail = <<-EOS.gsub(/^ +/, "").chomp
+          expected_tail = <<-EOS.gsub(%r{^ +}, "").chomp
               [removing] 'my_backups/sync_dir/orphan_01'
               [removing] 'my_backups/sync_dir/sub_dir/orphan_02'
 
@@ -302,7 +304,7 @@ shared_examples "a subclass of Syncer::Cloud::Base" do
         it "warns if delete fails" do
           allow(cloud_io).to receive(:delete).and_raise("Delete Error")
 
-          expected_tail = <<-EOS.gsub(/^ +/, "").chomp
+          expected_tail = <<-EOS.gsub(%r{^ +}, "").chomp
             Summary:
               Transferred Files: 3
               Attempted to Delete: 2 (See log messages for actual results)
@@ -316,7 +318,7 @@ shared_examples "a subclass of Syncer::Cloud::Base" do
           messages = Backup::Logger.messages
             .map(&:lines).flatten.map(&:strip).join("\n")
           expect(messages).to end_with expected_tail
-          expect(messages).to include(<<-EOS.gsub(/^ +/, ""))
+          expect(messages).to include(<<-EOS.gsub(%r{^ +}, ""))
             Syncer::Cloud::Error: Delete Operation Failed
             --- Wrapped Exception ---
             RuntimeError: Delete Error
@@ -329,7 +331,7 @@ shared_examples "a subclass of Syncer::Cloud::Base" do
           "/local/path/sync_dir/changed_01", "my_backups/sync_dir/changed_01"
         ).and_raise(Backup::CloudIO::FileSizeError)
 
-        expected_tail = <<-EOS.gsub(/^ +/, "").chomp
+        expected_tail = <<-EOS.gsub(%r{^ +}, "").chomp
           Summary:
             Transferred Files: 2
             Orphaned Files: 2
@@ -344,7 +346,7 @@ shared_examples "a subclass of Syncer::Cloud::Base" do
         messages = Backup::Logger.messages
           .map(&:lines).flatten.map(&:strip).join("\n")
         expect(messages).to end_with expected_tail
-        expect(messages).to include(<<-EOS.gsub(/^ +/, ""))
+        expect(messages).to include(<<-EOS.gsub(%r{^ +}, ""))
           Syncer::Cloud::Error: Skipping 'my_backups/sync_dir/changed_01'
           --- Wrapped Exception ---
           CloudIO::FileSizeError

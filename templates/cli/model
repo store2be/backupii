@@ -1,13 +1,13 @@
 # encoding: utf-8
 
 ##
-# Backup Generated: <%= @options[:trigger] %>
+# BackupII Generated: <%= @options[:trigger] %>
 # Once configured, you can run the backup with the following command:
 #
-# $ backup perform -t <%= @options[:trigger] %> [-c <path_to_configuration_file>]
+# $ backupii perform -t <%= @options[:trigger] %> [-c <path_to_configuration_file>]
 #
-# For more information about Backup's components, see the documentation at:
-# http://backup.github.io/backup
+# For more information about BackupII's components, see the documentation at:
+# http://backupii.github.io/backupii
 #
 Model.new(:<%= @options[:trigger] %>, 'Description for <%= @options[:trigger] %>') do
 <% if @options[:splitter] %>

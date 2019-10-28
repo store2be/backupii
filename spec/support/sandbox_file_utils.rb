@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #
 # Provides the ability to perform +FileUtils+ actions, while restricting
 # any destructive actions outside of the specified +sandbox_path+.
@@ -150,6 +152,7 @@ module SandboxFileUtils
       self.sandbox_path = path unless path.empty?
 
       return false if activated?
+
       Object.send(:remove_const, :FileUtils)
       Object.const_set(:FileUtils, self)
       true
@@ -182,7 +185,7 @@ module SandboxFileUtils
       pwd getwd cd chdir uptodate? compare_file identical? cmp
       compare_stream
     ].each do |name|
-      public :"#{ name }"
+      public :"#{name}"
     end
 
     %w[
@@ -239,11 +242,11 @@ module SandboxFileUtils
       list = Array(list).flatten.map { |p| File.expand_path(p) }
       path = current_sandbox_path + "/"
       unless list.all? { |p| p.start_with?(path) || p == path.chomp("/") }
-        raise Error, <<-EOS.gsub(/^ +/, ""), caller(1)
+        raise Error, <<-EOS.gsub(%r{^ +}, ""), caller(1)
           path(s) outside of the current sandbox path were detected.
           sandbox_path: #{path}
           path(s) for the current operation:
-          #{list.join($/)}
+          #{list.join($INPUT_RECORD_SEPARATOR)}
         EOS
       end
     end
@@ -251,6 +254,7 @@ module SandboxFileUtils
     def current_sandbox_path
       path = sandbox_path.to_s.chomp("/")
       raise Error, "sandbox_path must be set" if path.empty?
+
       File.expand_path(path)
     end
   end

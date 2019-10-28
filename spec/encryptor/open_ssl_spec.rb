@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "spec_helper"
 
 describe Backup::Encryptor::OpenSSL do
@@ -90,7 +92,7 @@ describe Backup::Encryptor::OpenSSL do
 
     context "with no options given" do
       it "should always include cipher command" do
-        expect(encryptor.send(:options)).to match(/^aes-256-cbc\s.*$/)
+        expect(encryptor.send(:options)).to match(%r{^aes-256-cbc\s.*$})
       end
 
       it "should add #password option whenever #password_file not given" do

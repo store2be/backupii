@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "spec_helper"
 
 module Backup
@@ -178,7 +180,7 @@ module Backup
 
         expect do
           klass.send(:load_defaults!)
-        end.to raise_error(NoMethodError, /Backup::Foo/)
+        end.to raise_error(NoMethodError, %r{Backup::Foo})
       end
 
       it "should raise an error if defaults were set for invalid accessors" do
@@ -188,7 +190,7 @@ module Backup
 
         expect do
           klass.send(:load_defaults!)
-        end.to raise_error(NoMethodError, /Backup::Foo/)
+        end.to raise_error(NoMethodError, %r{Backup::Foo})
       end
     end
 

@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 require "rubygems" if RUBY_VERSION < "1.9"
 require "bundler/setup"
 require "backup"
 
 require "timecop"
 
-Dir[File.expand_path("../support/**/*.rb", __FILE__)].each { |f| require f }
+Dir[File.expand_path("support/**/*.rb", __dir__)].each { |f| require f }
 
 module Backup
   module ExampleHelpers
@@ -22,7 +24,7 @@ module Backup
 
       yield
 
-      return captured_stdout.string, captured_stderr.string
+      [captured_stdout.string, captured_stderr.string]
     ensure
       $stdout = orig_stdout
       $stderr = orig_stderr

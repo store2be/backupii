@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "spec_helper"
 
 module Backup
@@ -84,7 +86,7 @@ module Backup
             pre_config.call(cf)
             cf.username = nil
           end
-        end.to raise_error StandardError, /are all required/
+        end.to raise_error StandardError, %r{are all required}
       end
 
       it "requires api_key" do
@@ -94,7 +96,7 @@ module Backup
             pre_config.call(cf)
             cf.api_key = nil
           end
-        end.to raise_error StandardError, /are all required/
+        end.to raise_error StandardError, %r{are all required}
       end
 
       it "requires container" do
@@ -104,7 +106,7 @@ module Backup
             pre_config.call(cf)
             cf.container = nil
           end
-        end.to raise_error StandardError, /are all required/
+        end.to raise_error StandardError, %r{are all required}
       end
     end # describe '#initialize'
 

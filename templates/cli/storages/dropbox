@@ -9,7 +9,7 @@
     db.api_key     = "my_api_key"
     db.api_secret  = "my_api_secret"
     # Sets the path where the cached authorized session will be stored.
-    # Relative paths will be relative to ~/Backup, unless the --root-path
+    # Relative paths will be relative to ~/.backupii, unless the --root-path
     # is set on the command line or within your configuration file.
     db.cache_path  = ".cache"
     # :app_folder (default) or :dropbox

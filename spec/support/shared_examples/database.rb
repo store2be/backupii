@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 shared_examples "a subclass of Database::Base" do
   describe "#initialize" do
     it "sets a reference to the model" do
@@ -58,7 +60,7 @@ shared_examples "a subclass of Database::Base" do
       end
       db1, db2 = test_model.databases
 
-      expect(db1.send(:dump_filename)).to match(/#{ klass_name }-\d{5}/)
+      expect(db1.send(:dump_filename)).to match(%r{#{klass_name}-\d{5}})
       expect(db2.send(:dump_filename)).to eq "#{klass_name}-my_id"
     end
 

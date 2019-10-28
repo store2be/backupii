@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "backup/config/dsl"
 require "backup/config/helpers"
 
@@ -9,12 +11,38 @@ module Backup
       config_file: "config.rb",
       data_path: ".data",
       tmp_path: ".tmp"
-    }
+    }.freeze
 
     class << self
       include Utilities::Helpers
 
       attr_reader :user, :root_path, :config_file, :data_path, :tmp_path
+
+      def check_config_version!(config)
+        version = Backup::VERSION.split(".").first
+
+        return if config =~ %r{^# backupii_config_version: #{version}$}
+
+        if config =~ %r{^# Backup v\d\.x Configuration$}
+          raise Error, <<-ERROR_MSG
+            Invalid Configuration File.
+            The configuration file at '#{config_file}'
+            appears to be a Backup 3/4/5 configuration file.
+            In order to use it with BackupII, you need to upgrade it.
+            Please refer to the BackupII documentation for upgrade instructions.
+          ERROR_MSG
+        elsif config !~ %r{^# backupii_config_version: #{version}$}
+          raise Error, <<-ERROR_MSG
+            Invalid Configuration File
+            The configuration file at '#{config_file}'
+            does not appear to be a BackupII v#{version}.x configuration file.
+            If you have upgraded to v#{version}.x from a previous version,
+            you need to upgrade your configuration file.
+            Please see the instructions for upgrading in the BackupII
+            documentation.
+          ERROR_MSG
+        end
+      end
 
       # Loads the user's +config.rb+ and all model files.
       def load(options = {})
@@ -25,17 +53,7 @@ module Backup
         end
 
         config = File.read(config_file)
-        version = Backup::VERSION.split(".").first
-        unless config =~ /^# Backup v#{ version }\.x Configuration$/
-          raise Error, <<-EOS
-            Invalid Configuration File
-            The configuration file at '#{config_file}'
-            does not appear to be a Backup v#{version}.x configuration file.
-            If you have upgraded to v#{version}.x from a previous version,
-            you need to upgrade your configuration file.
-            Please see the instructions for upgrading in the Backup documentation.
-          EOS
-        end
+        check_config_version!(config)
 
         dsl = DSL.new
         dsl.instance_eval(config, config_file)
@@ -43,7 +61,8 @@ module Backup
         update(dsl._config_options)  # from config.rb
         update(options)              # command line takes precedence
 
-        Dir[File.join(File.dirname(config_file), "models", "*.rb")].each do |model|
+        dirs = Dir[File.join(File.dirname(config_file), "models", "*.rb")]
+        dirs.each do |model|
           dsl.instance_eval(File.read(model), model)
         end
       end
@@ -81,13 +100,14 @@ module Backup
             Path was: #{path}
           EOS
         end
+
         @root_path = path
       end
 
       def set_path_variable(name, path, ending, root_path)
         # strip any trailing '/' in case the user supplied this as part of
         # an absolute path, so we can match it against File.expand_path()
-        path = path.to_s.sub(/\/\s*$/, "").lstrip
+        path = path.to_s.sub(%r{/\s*$}, "").lstrip
         new_path = false
         # If no path is given, the variable will not be set/updated
         # unless a root_path was given. In which case the value will
@@ -95,9 +115,9 @@ module Backup
         if path.empty?
           new_path = File.join(root_path, ending) if root_path
         else
-          # When a path is given, the variable will be set/updated.
-          # If the path is relative, it will be joined with root_path (if given),
-          # or expanded relative to PWD.
+          # When a path is given, the variable will be set/updated. If the path
+          # is relative, it will be joined with root_path (if given), or
+          # expanded relative to PWD.
           new_path = File.expand_path(path)
           unless path == new_path
             new_path = File.join(root_path, path) if root_path
@@ -108,7 +128,7 @@ module Backup
 
       def reset!
         @user      = ENV["USER"] || Etc.getpwuid.name
-        @root_path = File.join(File.expand_path(ENV["HOME"] || ""), "Backup")
+        @root_path = File.join(File.expand_path(ENV["HOME"] || ""), "BackupII")
         update(root_path: @root_path)
       end
     end

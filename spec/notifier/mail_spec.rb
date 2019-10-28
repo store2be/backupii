@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "spec_helper"
 
 module Backup
@@ -134,7 +136,7 @@ module Backup
             expect(sent_message.attachments[filename].read)
               .to eq "line 1\nline 2\nline 3"
             expect(sent_message.text_part).to be_an_instance_of ::Mail::Part
-            expect(sent_message.text_part.decoded).to eq <<-EOS.gsub(/^ +/, "")
+            expect(sent_message.text_part.decoded).to eq <<-EOS.gsub(%r{^ +}, "")
 
             Backup Completed Successfully!
 
@@ -146,13 +148,13 @@ module Backup
             See the attached backup log for details.
 
             #{"=" * 75}
-            Backup v#{VERSION}
+            BackupII v#{VERSION}
             Ruby: #{RUBY_DESCRIPTION}
 
-            Project Home:  https://github.com/backup/backup
-            Documentation: http://backup.github.io/backup
-            Issue Tracker: https://github.com/backup/backup/issues
-          EOS
+            Project Home:  https://github.com/backupii/backupii
+            Documentation: http://backupii.github.io/backupii
+            Issue Tracker: https://github.com/backupii/backupii/issues
+            EOS
           end
         end
 
@@ -165,7 +167,7 @@ module Backup
             expect(sent_message.multipart?).to eq(false)
             expect(sent_message.has_attachments?).to eq(false)
             expect(sent_message.body).to be_an_instance_of ::Mail::Body
-            expect(sent_message.body.decoded).to eq <<-EOS.gsub(/^ +/, "")
+            expect(sent_message.body.decoded).to eq <<-EOS.gsub(%r{^ +}, "")
 
             Backup Completed Successfully!
 
@@ -175,13 +177,13 @@ module Backup
             Duration: 00:00:05
 
             #{"=" * 75}
-            Backup v#{VERSION}
+            BackupII v#{VERSION}
             Ruby: #{RUBY_DESCRIPTION}
 
-            Project Home:  https://github.com/backup/backup
-            Documentation: http://backup.github.io/backup
-            Issue Tracker: https://github.com/backup/backup/issues
-          EOS
+            Project Home:  https://github.com/backupii/backupii
+            Documentation: http://backupii.github.io/backupii
+            Issue Tracker: https://github.com/backupii/backupii/issues
+            EOS
           end
         end
       end # context 'when status is :success'
@@ -199,7 +201,7 @@ module Backup
             expect(sent_message.attachments[filename].read)
               .to eq "line 1\nline 2\nline 3"
             expect(sent_message.text_part).to be_an_instance_of ::Mail::Part
-            expect(sent_message.text_part.decoded).to eq <<-EOS.gsub(/^ +/, "")
+            expect(sent_message.text_part.decoded).to eq <<-EOS.gsub(%r{^ +}, "")
 
             Backup Completed Successfully (with Warnings)!
 
@@ -211,13 +213,13 @@ module Backup
             See the attached backup log for details.
 
             #{"=" * 75}
-            Backup v#{VERSION}
+            BackupII v#{VERSION}
             Ruby: #{RUBY_DESCRIPTION}
 
-            Project Home:  https://github.com/backup/backup
-            Documentation: http://backup.github.io/backup
-            Issue Tracker: https://github.com/backup/backup/issues
-          EOS
+            Project Home:  https://github.com/backupii/backupii
+            Documentation: http://backupii.github.io/backupii
+            Issue Tracker: https://github.com/backupii/backupii/issues
+            EOS
           end
         end
 
@@ -232,7 +234,7 @@ module Backup
             expect(sent_message.multipart?).to eq(false)
             expect(sent_message.has_attachments?).to eq(false)
             expect(sent_message.body).to be_an_instance_of ::Mail::Body
-            expect(sent_message.body.decoded).to eq <<-EOS.gsub(/^ +/, "")
+            expect(sent_message.body.decoded).to eq <<-EOS.gsub(%r{^ +}, "")
 
             Backup Completed Successfully (with Warnings)!
 
@@ -242,13 +244,13 @@ module Backup
             Duration: 00:00:05
 
             #{"=" * 75}
-            Backup v#{VERSION}
+            BackupII v#{VERSION}
             Ruby: #{RUBY_DESCRIPTION}
 
-            Project Home:  https://github.com/backup/backup
-            Documentation: http://backup.github.io/backup
-            Issue Tracker: https://github.com/backup/backup/issues
-          EOS
+            Project Home:  https://github.com/backupii/backupii
+            Documentation: http://backupii.github.io/backupii
+            Issue Tracker: https://github.com/backupii/backupii/issues
+            EOS
           end
         end
       end # context 'when status is :warning'
@@ -266,7 +268,7 @@ module Backup
             expect(sent_message.attachments[filename].read)
               .to eq "line 1\nline 2\nline 3"
             expect(sent_message.text_part).to be_an_instance_of ::Mail::Part
-            expect(sent_message.text_part.decoded).to eq <<-EOS.gsub(/^ +/, "")
+            expect(sent_message.text_part.decoded).to eq <<-EOS.gsub(%r{^ +}, "")
 
             Backup Failed!
 
@@ -278,13 +280,13 @@ module Backup
             See the attached backup log for details.
 
             #{"=" * 75}
-            Backup v#{VERSION}
+            BackupII v#{VERSION}
             Ruby: #{RUBY_DESCRIPTION}
 
-            Project Home:  https://github.com/backup/backup
-            Documentation: http://backup.github.io/backup
-            Issue Tracker: https://github.com/backup/backup/issues
-          EOS
+            Project Home:  https://github.com/backupii/backupii
+            Documentation: http://backupii.github.io/backupii
+            Issue Tracker: https://github.com/backupii/backupii/issues
+            EOS
           end
         end
 
@@ -299,7 +301,7 @@ module Backup
             expect(sent_message.multipart?).to eq(false)
             expect(sent_message.has_attachments?).to eq(false)
             expect(sent_message.body).to be_an_instance_of ::Mail::Body
-            expect(sent_message.body.decoded).to eq <<-EOS.gsub(/^ +/, "")
+            expect(sent_message.body.decoded).to eq <<-EOS.gsub(%r{^ +}, "")
 
             Backup Failed!
 
@@ -309,13 +311,13 @@ module Backup
             Duration: 00:00:05
 
             #{"=" * 75}
-            Backup v#{VERSION}
+            BackupII v#{VERSION}
             Ruby: #{RUBY_DESCRIPTION}
 
-            Project Home:  https://github.com/backup/backup
-            Documentation: http://backup.github.io/backup
-            Issue Tracker: https://github.com/backup/backup/issues
-          EOS
+            Project Home:  https://github.com/backupii/backupii
+            Documentation: http://backupii.github.io/backupii
+            Issue Tracker: https://github.com/backupii/backupii/issues
+            EOS
           end
         end
       end # context 'when status is :failure'

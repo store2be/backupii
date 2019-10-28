@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "spec_helper"
 
 describe Backup::Compressor::Gzip do
@@ -118,7 +120,7 @@ describe Backup::Compressor::Gzip do
 
       expect(Backup::Logger).to receive(:warn) do |err|
         expect(err).to be_a(Backup::Compressor::Gzip::Error)
-        expect(err.message).to match(/'rsyncable' option ignored/)
+        expect(err.message).to match(%r{'rsyncable' option ignored})
       end
 
       compressor = Backup::Compressor::Gzip.new do |c|
